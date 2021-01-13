@@ -1,5 +1,4 @@
 ActiveAdmin.register Child do
-
   index do
     selectable_column
     id_column
@@ -13,7 +12,7 @@ ActiveAdmin.register Child do
     f.inputs "Child" do
       f.input :name
       f.input :address
-      f.input :dob, as: :string, input_html: {class: 'datepicker hasDatePicker'}
+      f.input :dob, as: :string, input_html: { class: "datepicker hasDatePicker" }
     end
     f.actions
   end

@@ -63,9 +63,8 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
-gem 'activeadmin'
-gem 'activeadmin_addons'
-gem 'devise'
-gem 'dotenv-rails', groups: [:development, :test]
-gem 'just-datetime-picker'
-gem 'sass-rails'
+gem "activeadmin"
+gem "activeadmin_addons"
+gem "devise"
+gem "just-datetime-picker"
+gem "sass-rails"
