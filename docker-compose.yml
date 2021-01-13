@@ -1,28 +1,26 @@
-version: "3.8"
+version: '3.6'
+volumes:
+  dbdata:
 services:
-  database:
+  db:
     image: postgres:11.5
     environment:
       POSTGRES_DB: govuk
       POSTGRES_USER: govuk
       POSTGRES_PASSWORD:
     volumes:
-      - db_data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - dbdata:/var/lib/postgresql/data
   web:
     build: .
-    volumes:
-      - .:/code:cached
-    command: bash -c "bundle install && rm -f tmp/pids/server.pid && bundle exec rails s -p 8080 -b '0.0.0.0'"
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     ports:
-      - "8080:8080"
+      - 3001:3000
     depends_on:
-      - database
+      - db
     environment:
       RAILS_ENV: development
       DATABASE_NAME: govuk
       DATABASE_USER: govuk
       DATABASE_PASSWORD:
-      DATABASE_HOST: database
-volumes:
-  db_data:
+      DATABASE_HOST: db
+    image: c996735bdd18
