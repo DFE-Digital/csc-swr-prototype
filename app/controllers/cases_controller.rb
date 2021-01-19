@@ -1,5 +1,4 @@
 class CasesController < ApplicationController
-
   def index
   end
   
@@ -10,6 +9,7 @@ class CasesController < ApplicationController
     @case = Case.new(name: params[:name])
     @case.image.attach(params[:image])
     @case.save
+    ConvertImageExtensionJob.perform_later(@case)
   end
 
   def show

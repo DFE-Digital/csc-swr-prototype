@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby File.read(".ruby-version").chomp
 
-gem 'rmagick'
+gem "image_processing"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.1.1"
@@ -18,7 +18,7 @@ gem "puma", "~> 5.1"
 gem "webpacker"
 
 # Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
+gem 'mini_magick', '~> 4.8'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.1.0", require: false
