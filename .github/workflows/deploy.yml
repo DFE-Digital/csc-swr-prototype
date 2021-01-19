@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - master
-      - new-github-actions
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -57,7 +56,7 @@ jobs:
     env:
       DOCKER_REPO: dfedigital/social-worker-recording-tool
       DOCKER_IMAGE: social-worker-recording-tool
-    if: github.ref == 'refs/heads/new-github-actions'
+    if: github.ref == 'refs/heads/master'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
