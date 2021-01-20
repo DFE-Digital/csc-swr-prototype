@@ -1,36 +1,110 @@
-name: Deploy
-
+name: Test and Deploy
 on:
+  pull_request:
+    types: [assigned, opened, reopened, synchronize]
   push:
     branches:
       - master
-
 jobs:
-  deploy:
-    name: Deploy to Production
-
+  test:
     runs-on: ubuntu-latest
-
+    services:
+      postgres:
+        image: postgres:11
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:@localhost:5432/csc_test
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Clone project
+        uses: actions/checkout@v2
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+      - name: Check for cached bundler
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: bundle-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: bundle
+      - run: bundle install --jobs 4 --retry 3 --deployment
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Check for cached node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: yarn
+      - run: yarn install --frozen-lockfile
+      - run: bundle exec rails db:prepare
+      - run: bundle exec rails assets:precompile
+      - run: bundle exec rake
 
-    - name: Install cf client
-      env:
-        CF_CLI_VERSION: 7.1.0
-      run: |
-        curl -L "https://packages.cloudfoundry.org/stable?release=linux64-binary&version=${CF_CLI_VERSION}" | tar -zx -C /tmp
-        sudo cp /tmp/cf7 /usr/local/bin/cf7
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    env:
+      DOCKER_REPO: dfedigital/social-worker-recording-tool
+      DOCKER_IMAGE: social-worker-recording-tool
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Deploy to production
-      env:
-        CF_USERNAME: ${{ secrets.CF_USERNAME }}
-        CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
-        CF_API_ENDPOINT: ${{ secrets.CF_API_ENDPOINT }}
-        CF_SPACE: ${{ secrets.CF_SPACE }}
-        CF_ORG: ${{ secrets.CF_ORG }}
-      run: |
-        cf7 api $CF_API_ENDPOINT
-        cf7 auth
-        cf7 target -o $CF_ORG -s $CF_SPACE
-        cf7 push
+      - name: Get Short SHA
+        id: sha
+        run: echo ::set-output name=short::$(echo "${{ github.sha }}" | cut -c -7)
+
+      - name: Wait for previous runs to complete
+        uses: softprops/turnstyle@v1
+        env:
+          GITHUB_TOKEN: ${{ SECRETS.GITHUB_TOKEN }}
+        with:
+          continue-after-seconds: 180
+
+      - name: Push to Docker Hub
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: ${{ env.DOCKER_REPO }}
+          tag_with_sha: true
+
+      - name: Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.13.4
+
+      - name: Terraform Init
+        run: |
+          cd terraform/paas && pwd
+          terraform init \
+            -backend-config "bucket=${{ secrets.AWS_BUCKET_NAME }}" \
+            -backend-config "access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" \
+            -backend-config "secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+      - name: Terraform Plan
+        run: |
+          cd terraform/paas && pwd
+          terraform plan -out plan
+        env:
+          TF_VAR_user: "${{ secrets.CF_USERNAME }}"
+          TF_VAR_password: "${{ secrets.CF_PASSWORD }}"
+          TF_VAR_csc_docker_repo: "${{ env.DOCKER_REPO }}:sha-${{ steps.sha.outputs.short }}"
+      - name: Terraform Apply
+        run: |
+          cd terraform/paas && pwd
+          terraform apply -auto-approve plan
+        env:
+          TF_VAR_user: "${{ secrets.CF_USERNAME }}"
+          TF_VAR_password: "${{ secrets.CF_PASSWORD }}"
+          TF_VAR_csc_docker_repo: "${{ env.DOCKER_REPO }}:sha-${{ steps.sha.outputs.short }}"

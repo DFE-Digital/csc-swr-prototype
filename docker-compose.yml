@@ -14,13 +14,12 @@ services:
     build: .
     command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     ports:
-      - 3001:3000
+      - 3000:3000
     depends_on:
       - db
     environment:
-      RAILS_ENV: development
       DATABASE_NAME: govuk
       DATABASE_USER: govuk
       DATABASE_PASSWORD:
       DATABASE_HOST: db
-    image: c996735bdd18
+      SECRET_KEY_BASE: "22029186ec84ea09dd45aa8c62a7404ac630216a25f2cb436b98272695fc5409e1471887568b6e9e27832368102f5962647df747f515d11c515ee36258d7fd04"
