@@ -7,7 +7,7 @@ ruby File.read(".ruby-version").chomp
 gem "rails", "~> 6.1.1"
 
 # Devise
-gem 'devise'
+gem "devise"
 
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
