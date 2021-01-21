@@ -1,8 +1,8 @@
 ActiveAdmin.register CaseDocument do
   menu parent: "Cases", priority: 1
 
-  form title: 'Document upload' do |f|
-    f.inputs 'document' do
+  form title: "Document upload" do |f|
+    f.inputs "document" do
       f.input :case
       f.input :title
       f.input :document_type
@@ -17,13 +17,13 @@ ActiveAdmin.register CaseDocument do
     end
   end
 
-  show title: 'Case Document' do 
+  show title: "Case Document" do
     default_main_content
-    attributes_table do 
+    attributes_table do
       row :document do |ad|
-        if ad.document.attachment.content_type == 'image/jpeg'
+        if ad.document.attachment.content_type == "image/jpeg"
           image_tag ad.document
-        else 
+        else
           ad.document # need to check for other file types too
         end
       end

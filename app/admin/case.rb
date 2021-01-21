@@ -19,16 +19,16 @@ ActiveAdmin.register Case do
     end
   end
 
-  show title: 'Case' do 
+  show title: "Case" do
     default_main_content
-    attributes_table do 
+    attributes_table do
       row :documents do |ad|
         ad.case_documents.each do |case_document|
           link_to case_document
         end
       end
     end
-    # attributes_table do 
+    # attributes_table do
     #   row :chidlren do |ad|
     #     ad.children.each do |children|
     #       link_to children
