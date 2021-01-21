@@ -8,6 +8,9 @@ ActiveAdmin.register Child do
     column :last_name
     column :address
     column :dob
+    column :adults do |c|
+      c.adults.map{|a| link_to "#{a.to_label}", admin_adult_path(a)}
+    end
     actions
   end
 
@@ -16,6 +19,7 @@ ActiveAdmin.register Child do
       f.input :first_name
       f.input :last_name
       f.input :address, as: :string
+      f.input :adults
       f.input :dob, as: :string, input_html: { class: "datepicker hasDatePicker" }
     end
     f.actions
