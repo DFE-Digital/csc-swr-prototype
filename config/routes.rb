@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  root 'pages#home'
+  devise_for :users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+  root "pages#home"
 
   get "/pages/:page", to: "pages#show"
 
