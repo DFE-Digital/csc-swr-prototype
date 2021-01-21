@@ -1,3 +1,3 @@
 class CaseNote < ApplicationRecord
-  belongs_to :case_id
+  belongs_to :case
 end

@@ -1,9 +1,11 @@
 {
   "engines": {
-    "node": "12.x"
+    "node": "14.11"
   },
   "dependencies": {
+    "@activeadmin/activeadmin": "^2.9.0",
     "@rails/webpacker": "^5.2.1",
+    "activeadmin_addons": "^1.0.0",
     "govuk-frontend": "^3.10.2",
     "rails-ujs": "^5.2.4",
     "serialize-javascript": "^5.0.1",
