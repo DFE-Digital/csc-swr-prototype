@@ -1,7 +1,19 @@
-![Deploy](https://github.com/DFE-Digital/govuk-rails-boilerplate/workflows/Deploy/badge.svg)
+# Welcome to the Social Worker Recording Tool Prototype 
 
-# GOV.UK Rails Boilerplate
+Prototype link: https://social-worker-recording-tool-dev.london.cloudapps.digital/
 
+## Docker dependencies
+
+1. Docker
+2. Docker-compose 
+
+## Installing the repo and running with Docker
+
+`$ git clone git@github.com:DFE-Digital/csc-swr-prototype.git`
+`$ cd csc-swr-prototype`
+`$ docker-compose up --build`
+
+## If you want to run it locally without docker
 ## Prerequisites
 
 - Ruby 2.7.1
@@ -17,13 +29,6 @@
 4. Run `bundle exec rails server` to launch the app on http://localhost:3000
 5. Run `./bin/webpack-dev-server` in a separate shell for faster compilation of assets
 
-## Whats included in this boilerplate?
-
-- Rails 6.0 with Webpacker
-- [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend)
-- RSpec
-- Dotenv (managing environment variables)
-- Travis with Heroku deployment
 
 ## Running specs, linter(without auto correct) and annotate models and serializers
 ```
