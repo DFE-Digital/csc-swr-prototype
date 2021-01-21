@@ -20,8 +20,12 @@ ActiveAdmin.register CaseDocument do
   show title: 'Case Document' do 
     default_main_content
     attributes_table do 
-      row :image do |ad|
-        image_tag ad.document
+      row :document do |ad|
+        if ad.document.attachment.content_type == 'image/jpeg'
+          image_tag ad.document
+        else 
+          ad.document # need to check for other file types too
+        end
       end
     end
   end
