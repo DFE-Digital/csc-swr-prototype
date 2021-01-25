@@ -26,13 +26,10 @@ ActiveAdmin.register CaseDocument do
       # The following will be done in Active Job for async
       # Assuming an image is uploaded, not any other file type
       transcode_image(case_document, case_document.document_type)
-      byebug
       create! do |format|
-        format.html{ redirect_to collection_path }
+        format.html { redirect_to collection_path }
       end
     end
-
-    
 
     def transcode_image(case_document, format_type)
       img = MiniMagick::Image.read(case_document.document.download)
