@@ -1,0 +1,2 @@
+module CaseDocumentHelper
+end
