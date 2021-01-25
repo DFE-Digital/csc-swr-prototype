@@ -7,8 +7,9 @@ ActiveAdmin.register CaseDocument do
     f.inputs "document" do
       f.input :case
       f.input :title
-      f.input :document_type
       f.input :document, as: :file
+      f.label "convert to: "
+      f.select :document_type, ['png', 'jpg', 'tiff']
     end
     f.actions
   end
@@ -23,7 +24,7 @@ ActiveAdmin.register CaseDocument do
       case_document.save
       # The following will be done in Active Job for async
       # Assuming an image is uploaded, not any other file type
-      transcode_image(case_document, 'png')
+      transcode_image(case_document, case_document.document_type)
     end
     def transcode_image(case_document, format_type)
       img = MiniMagick::Image.read(case_document.document.download)
@@ -31,7 +32,7 @@ ActiveAdmin.register CaseDocument do
       case_document.document.attach(
         io: File.open(img.path),
         filename: case_document.title,
-        content_type: 'png'
+        content_type: format_type
       )
       case_document.save
     end
@@ -43,7 +44,7 @@ ActiveAdmin.register CaseDocument do
         row field
       end
       row :document do |ad|
-        if ad.document.attachment.content_type == "image/jpeg"
+        if ad.document.attachment.content_type.include?("image")
           image_tag ad.document
         else
           ad.document # need to check for other file types too
