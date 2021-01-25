@@ -6,8 +6,7 @@ ActiveAdmin.register CaseDocument do
       f.input :case
       f.input :title
       f.input :document, as: :file
-      f.label "convert to: "
-      f.select :document_type, %w[png jpg tiff]
+      f.input :document_type, as: :select, collection: %w[png jpg tiff], label: 'Convert to:'
     end
     f.actions
   end
@@ -18,11 +17,14 @@ ActiveAdmin.register CaseDocument do
     end
 
     def create
-      case_document = CaseDocument.new(permitted_params[:case_document])
-      case_document.document.attach(permitted_params[:case_document][:document])
-      case_document.save!
+      @case_document = CaseDocument.new(permitted_params[:case_document])
+      @case_document.document.attach(permitted_params[:case_document][:document])
+
+      @case_document.save!
       # Assuming an image is uploaded, not any other file type
-      TranscodeImageJob.perform_later(case_document, case_document.document_type)
+      TranscodeImageJob.perform_later(@case_document, @case_document.document_type)
+
+      redirect_to resource_path(@case_document), notice: "Case Document was successfully created."
     end
   end
 
