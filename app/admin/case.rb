@@ -25,7 +25,7 @@ ActiveAdmin.register Case do
         row field
       end
       row :documents do |ad|
-        ad.case_documents.each_with_index do |case_document, index|
+        ad.case_documents.each_with_index do |_case_document, _index|
           link_to :case_document
         end
       end

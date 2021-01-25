@@ -1,4 +1,4 @@
-require 'mini_magick'
+require "mini_magick"
 
 ActiveAdmin.register CaseDocument do
   menu parent: "Cases", priority: 1
@@ -9,7 +9,7 @@ ActiveAdmin.register CaseDocument do
       f.input :title
       f.input :document, as: :file
       f.label "convert to: "
-      f.select :document_type, ['png', 'jpg', 'tiff']
+      f.select :document_type, %w[png jpg tiff]
     end
     f.actions
   end
@@ -18,23 +18,31 @@ ActiveAdmin.register CaseDocument do
     def permitted_params
       params.permit!
     end
+
     def create
       case_document = CaseDocument.new(permitted_params[:case_document])
       case_document.document.attach(permitted_params[:case_document][:document])
-      case_document.save
+      case_document.save!
       # The following will be done in Active Job for async
       # Assuming an image is uploaded, not any other file type
       transcode_image(case_document, case_document.document_type)
+      byebug
+      create! do |format|
+        format.html{ redirect_to collection_path }
+      end
     end
+
+    
+
     def transcode_image(case_document, format_type)
       img = MiniMagick::Image.read(case_document.document.download)
       img = img.format(format_type)
       case_document.document.attach(
         io: File.open(img.path),
         filename: case_document.title,
-        content_type: format_type
+        content_type: format_type,
       )
-      case_document.save
+      case_document.save!
     end
   end
 
