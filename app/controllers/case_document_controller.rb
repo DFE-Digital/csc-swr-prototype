@@ -1,2 +1,0 @@
-class CaseDocumentsController < ApplicationController
-end

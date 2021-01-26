@@ -6,7 +6,7 @@ ActiveAdmin.register CaseDocument do
       f.input :case
       f.input :title
       f.input :document, as: :file
-      f.input :document_type, as: :select, collection: %w[png jpg tiff], label: 'Convert to:'
+      f.input :document_type, as: :select, collection: %w[png jpg tiff], label: "Convert to:"
     end
     f.actions
   end

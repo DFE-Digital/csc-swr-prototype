@@ -13,4 +13,3 @@ class TranscodeImageJob < ApplicationJob
     )
   end
 end
-
