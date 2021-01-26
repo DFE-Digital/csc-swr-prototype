@@ -22,7 +22,7 @@ ActiveAdmin.register CaseDocument do
 
       @case_document.save!
       # Assuming an image is uploaded, not any other file type
-      TranscodeImageJob.perform_later(@case_document, @case_document.document_type)
+      TranscodeImageJob.perform_later(@case_document)
 
       redirect_to resource_path(@case_document), notice: "Case Document was successfully created."
     end
