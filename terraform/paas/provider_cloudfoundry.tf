@@ -18,7 +18,7 @@ data "cloudfoundry_service" "postgres" {
 }
 
 resource "cloudfoundry_service_instance" "postgres" {
-  name = "recording-development-db"
+  name = "social-recording-develop-db"
   space = data.cloudfoundry_space.social-worker-recording-tool.id
   service_plan = data.cloudfoundry_service.postgres.service_plans["medium-11"]
 }
