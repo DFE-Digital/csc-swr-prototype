@@ -1,11 +1,11 @@
-# Welcome to the Social Worker Recording Tool Prototype 
+# Welcome to the Social Worker Recording Tool Prototype
 
 Prototype link: https://social-worker-recording-tool-dev.london.cloudapps.digital/
 
 ## Docker dependencies
 
 1. Docker
-2. Docker-compose 
+2. Docker-compose
 
 ## Installing the repo and running with Docker
 
@@ -18,7 +18,7 @@ Prototype link: https://social-worker-recording-tool-dev.london.cloudapps.digita
 
 - Ruby 2.7.1
 - PostgreSQL
-- NodeJS 12.13.x
+- NodeJS 14.13.x
 - Yarn 1.12.x
 
 ## Setting up the app in development
