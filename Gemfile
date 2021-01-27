@@ -24,6 +24,10 @@ gem "bootsnap", ">= 1.1.0", require: false
 # Manage multiple processes i.e. web server and webpack
 gem "foreman"
 
+# frontend
+gem "govuk-components"
+gem "govuk_design_system_formbuilder"
+
 # Canonical meta tag
 gem "canonical-rails"
 
