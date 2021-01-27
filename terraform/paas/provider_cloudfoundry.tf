@@ -30,11 +30,11 @@ data "cloudfoundry_domain" "dev" {
 resource "cloudfoundry_route" "dev_route" {
   domain = data.cloudfoundry_domain.dev.id
   space = data.cloudfoundry_space.social-worker-recording-tool.id
-  hostname = "social-worker-recording-tool-dev"
+  hostname = "social-worker-recording-tool-develop"
 }
 
-resource "cloudfoundry_app" "social-worker-recording-tool-dev" {
-  name = "social-worker-recording-tool-dev"
+resource "cloudfoundry_app" "social-worker-recording-tool-develop" {
+  name = "social-worker-recording-tool-develop"
   space = data.cloudfoundry_space.social-worker-recording-tool.id
   docker_image = var.csc_docker_repo
   service_binding {
