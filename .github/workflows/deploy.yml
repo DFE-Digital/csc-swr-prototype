@@ -4,7 +4,7 @@ on:
     types: [assigned, opened, reopened, synchronize]
   push:
     branches:
-      - master
+      - update-org-in-terraform-config
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -56,7 +56,7 @@ jobs:
     env:
       DOCKER_REPO: dfedigital/social-worker-recording-tool
       DOCKER_IMAGE: social-worker-recording-tool
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/update-org-in-terraform-config'
     steps:
       - name: Checkout
         uses: actions/checkout@v2

@@ -5,7 +5,7 @@ provider "cloudfoundry" {
 }
 
 data "cloudfoundry_org" "my_org" {
-  name = "dfe-childrens-social-care-services"
+  name = "dfe"
 }
 
 data "cloudfoundry_space" "social-worker-recording-tool" {
