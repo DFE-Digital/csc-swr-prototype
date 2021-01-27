@@ -32,5 +32,8 @@ module GovukRailsBoilerplate
     config.exceptions_app = routes
 
     config.middleware.use Rack::Deflater
+
+    config.paths.add File.join('app', 'services'), glob: File.join('**', '*.rb')
+    config.autoload_paths += Dir[Rails.root.join('app', 'services', '*')]
   end
 end
