@@ -64,7 +64,6 @@ group :development do
 end
 
 group :test do
-  gem "capybara", "~> 3.33"
   gem "factory_bot_rails"
   gem "pundit-matchers", "~> 1.6"
   gem "shoulda-matchers", "~> 4.0"
