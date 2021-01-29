@@ -7,7 +7,8 @@ Rails.application.routes.draw do
 
   get "/new-media-file", to: "case_documents#new"
   post "/new-media-file", to: "case_documents#create"
-
+  get "/new-media-show", to: "case_documents#show"
+  
   get "/404", to: "errors#not_found", via: :all
   get "/422", to: "errors#unprocessable_entity", via: :all
   get "/500", to: "errors#internal_server_error", via: :all

@@ -30,7 +30,7 @@ module GovukRailsBoilerplate
     # the framework and any gems in your application.
 
     config.exceptions_app = routes
-
+    config.action_view.form_with_generates_remote_forms = false
     config.middleware.use Rack::Deflater
   end
 end

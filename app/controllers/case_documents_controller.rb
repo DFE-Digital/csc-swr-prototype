@@ -14,6 +14,11 @@ class CaseDocumentsController < ApplicationController
     TranscodeImageJob.perform_later(@case_document)
 
     # redirect has not been built yet by the UX team.
+    redirect_to :new_media_show
+  end
+
+  def show
+    @case_document = CaseDocument.last
   end
 
   def permit_params
