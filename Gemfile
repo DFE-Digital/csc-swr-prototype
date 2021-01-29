@@ -72,3 +72,4 @@ gem "google-apis-drive_v3"
 gem "rest-client"
 gem 'google_drive'
 gem "docx"
+gem "google-cloud-speech"
