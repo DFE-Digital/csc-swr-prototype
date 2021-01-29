@@ -70,7 +70,6 @@ group :test do
   gem "simplecov", require: false
   gem "vcr"
   gem "webdrivers", "~> 4.4"
-
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
