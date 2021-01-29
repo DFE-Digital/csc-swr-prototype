@@ -31,6 +31,9 @@ gem "govuk_design_system_formbuilder"
 # Canonical meta tag
 gem "canonical-rails"
 
+# authorization
+gem "pundit"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
@@ -61,6 +64,11 @@ group :development do
 end
 
 group :test do
+  gem "factory_bot_rails"
+  gem "pundit-matchers", "~> 1.6"
+  gem "shoulda-matchers", "~> 4.0"
+  gem "simplecov", require: false
+  gem "vcr"
   gem "webdrivers", "~> 4.4"
 end
 
