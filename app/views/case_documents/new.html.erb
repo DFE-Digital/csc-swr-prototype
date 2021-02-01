@@ -1,0 +1,20 @@
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @case_document do | f | %>
+
+      <div class='govuk-form-group'>
+        <legend class="govuk-fieldset__legend--xl">Add an image or video</legend>
+      </div>
+
+      <div class='govuk-form-group'>
+        <%= f.label "Upload a file", class: "govuk-label govuk-!-margin-top-6" %>
+        <%= f.file_field :document, class: "govuk-file-upload", id: "file-upload-1", label: "Upload a file" %>
+      </div>
+
+      <div class='govuk-form-group'>
+        <%= f.submit "Upload", class: "govuk-button govuk-!-margin-bottom-0" %>
+      </div>
+
+    <% end %>
+	</div>
+</div>

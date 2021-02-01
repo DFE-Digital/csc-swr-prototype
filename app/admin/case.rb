@@ -18,4 +18,17 @@ ActiveAdmin.register Case do
       params.permit!
     end
   end
+
+  show title: "Case" do
+    attributes_table do
+      default_attribute_table_rows.each do |field|
+        row field
+      end
+      row :documents do |ad|
+        ad.case_documents.each_with_index do |_case_document, _index|
+          link_to :case_document
+        end
+      end
+    end
+  end
 end

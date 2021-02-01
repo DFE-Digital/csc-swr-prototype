@@ -9,7 +9,7 @@ ActiveAdmin.register Child do
     column :address
     column :dob
     column :adults do |c|
-      c.adults.map{|a| link_to "#{a.to_label}", admin_adult_path(a)}
+      c.adults.map { |a| link_to a.to_label.to_s, admin_adult_path(a) }
     end
     actions
   end

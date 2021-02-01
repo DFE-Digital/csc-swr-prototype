@@ -1,0 +1,23 @@
+<div id="image"><%= image_tag(url_for(@case_document.document))%></div>
+<div id="image_type">Image type: <%= @case_document.document.attachment.content_type %></div>
+<div id="status">Status: <%= @status %></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  jQuery( document ).ready(function() {
+    function doPoll(){
+        jQuery.get('/status?job=<%= @case_document.job_id %>', function(data) {
+            if(data['status'] == 'completed') {
+              console.log('transcoding finished');
+            } else {
+              setTimeout(doPoll, 2000);
+            }
+            console.log(data.status)
+            jQuery("div#status").html('Status: ' + data['status'])
+            jQuery("div#image_type").html('Image type: ' + data['image_type'])
+            jQuery("div#image").html("<img src=" + data['case_document_url'] + "></a>")
+        });
+    }
+    doPoll();
+  });
+</script>

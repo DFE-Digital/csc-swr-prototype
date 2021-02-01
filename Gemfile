@@ -9,6 +9,14 @@ gem "rails", "~> 6.1.1"
 # Devise
 gem "devise"
 
+# Redis
+gem 'redis-rails'
+
+gem "sidekiq"
+
+# Active job status
+gem 'activejob-status'
+
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
 
@@ -19,7 +27,7 @@ gem "puma", "~> 5.1"
 gem "webpacker"
 
 # Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
+gem "mini_magick", "~> 4.8"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.1.0", require: false
@@ -29,6 +37,9 @@ gem "foreman"
 
 # Canonical meta tag
 gem "canonical-rails"
+
+# Extension for minimagick gem
+gem "image_processing"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

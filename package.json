@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": "14.11"
+    "node": "12.x"
   },
   "dependencies": {
     "@activeadmin/activeadmin": "^2.9.0",
