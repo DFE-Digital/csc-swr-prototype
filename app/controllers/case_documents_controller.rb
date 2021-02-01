@@ -11,14 +11,20 @@ class CaseDocumentsController < ApplicationController
 
     @case_document.save!
     # Assuming an image is uploaded, not any other file type
-    TranscodeImageJob.perform_later(@case_document)
-
+    job_id = TranscodeImageJob.perform_later(@case_document).job_id
     # redirect has not been built yet by the UX team.
+    @case_document.update(job_id: job_id)
     redirect_to :new_media_show
   end
 
   def show
     @case_document = CaseDocument.last
+    @status = ActiveJob::Status.get(@case_document.job_id)
+  end
+
+  def status 
+    status = ActiveJob::Status.get(params[:job])
+    render json: status.to_json
   end
 
   def permit_params

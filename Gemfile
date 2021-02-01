@@ -9,6 +9,14 @@ gem "rails", "~> 6.1.1"
 # Devise
 gem "devise"
 
+# Redis
+gem 'redis-rails'
+
+gem "sidekiq"
+
+# Active job status
+gem 'activejob-status'
+
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
 

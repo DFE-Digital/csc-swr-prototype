@@ -1,2 +1,21 @@
 <div><%= image_tag(url_for(@case_document.document))%></div>
 <div>Image type: <%= @case_document.document.attachment.content_type %></div>
+<div id="status">Status: <%= @status %></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  jQuery( document ).ready(function() {
+    function doPoll(){
+        jQuery.get('/status?job=<%= @case_document.job_id %>', function(data) {
+            if(data['status'] == 'completed') {
+              console.log('transcoding finished');
+            } else {
+              setTimeout(doPoll, 5000);
+            }
+            jQuery("div#status").html('Status: ' + data['status'])
+            
+        });
+    }
+    doPoll();
+  });
+</script>
