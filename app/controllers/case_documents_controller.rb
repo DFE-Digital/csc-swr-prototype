@@ -24,7 +24,9 @@ class CaseDocumentsController < ApplicationController
 
   def status 
     status = ActiveJob::Status.get(params[:job])
-    render json: status.to_json
+    case_document = CaseDocument.where(job_id: params[:job])[0]
+    response = { status: status.status, image_type: case_document.document.attachment.content_type, case_document_url: rails_blob_path(case_document.document) }
+    render json: response.to_json
   end
 
   def permit_params
