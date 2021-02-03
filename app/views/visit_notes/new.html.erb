@@ -1,0 +1,18 @@
+
+
+<div>Example form with persisting offline data</div>
+<%= form_for :example_form, html: {id: "my_form"} do |f| %> 
+  <%=  f.text_field :hello, id: 'form_input' %>
+  <%=  f.submit 'Submit this form', id: 'submit_button' %>
+<% end %>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script>
+  $(document).ready(function() {
+    $('#form_input').val(localStorage.getItem('Example Form'))
+  });
+  setInterval(() => {
+    localStorage.setItem('Example Form', document.getElementById("form_input").value)
+  }, 5000)
+  
+</script>
