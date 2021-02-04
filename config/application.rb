@@ -35,5 +35,9 @@ module GovukRailsBoilerplate
 
     config.paths.add File.join('app', 'services'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'services', '*')]
+
+    config.action_view.form_with_generates_remote_forms = false
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end

@@ -10,9 +10,22 @@
          <h2 class="govuk-heading-l">
             Google Drive files
          </h2>
+          <% if Case.first.case_notes.empty? %>
          <p>
             You have not added any Google Drive files yet.
          </p>
+         <% else %>
+         <table class="govuk-table">
+            <tbody class="govuk-table__body">
+            <% Case.first.case_notes.each do |case_note| %>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell"><%= link_to case_note.title, show_path(case_note.id) %></td>
+              <td class="govuk-table__cell"><%= case_note.created_at.strftime('%d %B %Y') %></td>
+            </tr>
+            <% end %>
+           </tbody>
+         </table>
+         <% end %>
          <form method="get" action="gdrive">
             <p>
                <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
@@ -36,11 +49,25 @@
          <h2 class="govuk-heading-l">
             Audio recordings
          </h2>
+
+         <% if Case.first.case_documents.select{|a| a.document_type == 'audio'}.empty? %>
          <p>
             You have not added any audio recordings yet.
          </p>
+         <% else %>
+           <table class="govuk-table">
+      			  <tbody class="govuk-table__body">
+              <% Case.first.case_documents.select{|a| a.document_type == 'audio'}.each do |case_document| %>
+      				<tr class="govuk-table__row">
+      					<td class="govuk-table__cell"><%= link_to case_document.title, audio_show_path(case_document) %></td>
+      					<td class="govuk-table__cell"><%= case_document.created_at.strftime('%d %B %Y') %></td>
+      				</tr>
+              <% end %>
+      			 </tbody>
+      		 </table>
+         <% end %>
          <p>
-            <a href="not-built-yet" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+            <a href="/audio" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
             Add audio recording
             </a>
          </p>

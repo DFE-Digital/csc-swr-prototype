@@ -73,3 +73,7 @@ gem "rest-client"
 gem 'google_drive'
 gem "docx"
 gem "google-cloud-speech"
+gem "activejob-status"
+gem "sidekiq"
+gem 'redis-rails'
+#gem "devise"

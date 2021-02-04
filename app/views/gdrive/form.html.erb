@@ -1,39 +1,18 @@
-<form method="post">
-
-
-
-<div class="govuk-form-group">
-  <h1 class="govuk-label-wrapper">
-    <label class="govuk-label govuk-label--xl" for="note-content">
-      File content loaded from the file
-    </label>
-    </h1>
-
-
-
-  <div id="note-content-hint" class="govuk-hint">
-    Content loaded from the google drive
-  </div>
-
-
-  <textarea class="govuk-textarea" id="note-content" name="note-content" rows="20" aria-describedby="note-content-hint"><%= @content %></textarea>
-</div>
-
-
-			<p class="govuk-!-margin-bottom-0">
-
-
-
-
-
-
-<button class="govuk-button" data-module="govuk-button">
-  Save and continue
-</button>
-
-			</p>
-			<p>
-
-
-			</p>
-		</form>
+<%= form_with model: @case_note, url: :save do | f | %>
+   <div class="govuk-form-group">
+      <h1 class="govuk-label-wrapper">
+         <label class="govuk-label govuk-label--xl" for="note-content">
+         File content loaded from the file
+         </label>
+      </h1>
+      <div id="note-body" class="govuk-hint">
+         Content loaded from the google drive
+      </div>
+      <textarea class="govuk-textarea" id="note-content" name="body" rows="20" aria-describedby="note-content-hint"><%= @content %></textarea>
+   </div>
+   <p class="govuk-!-margin-bottom-0">
+    <%= f.submit "Save and continue", class: "govuk-button govuk-!-margin-bottom-0" %>
+   </p>
+   <p>
+   </p>
+<% end %>

@@ -1,0 +1,43 @@
+<%= form_for @case_document, url: audio_update_path(@case_document) do | f | %>
+   <div class="govuk-form-group">
+      <h1 class="govuk-label-wrapper">
+         <label class="govuk-label govuk-label--xl" for="note-content">
+         Audio file content<br>
+         <% if ActiveJob::Status.get(@case_document.job_id)[:status] == :completed %>
+           <p class="govuk-!-margin-bottom-0">Processing complete</p>
+         <% else %>
+          <div id="status">
+            <p class="govuk-!-margin-bottom-0">Processing in progress
+              <img src="https://thumbs.gfycat.com/ColorlessAcrobaticIslandcanary-size_restricted.gif" width="40px" height="40px">
+            </p>
+          </div>
+         <% end %>
+         </label>
+      </h1>
+      <textarea class="govuk-textarea" id="content" name="body" rows="20" aria-describedby="note-content-hint"><%= @case_document.transcoded_text %></textarea>
+   </div>
+   <p class="govuk-!-margin-bottom-0">
+    <%= f.submit "Save and continue", class: "govuk-button govuk-!-margin-bottom-0" %>
+   </p>
+   <p>
+   </p>
+<% end %>
+
+<script>
+  jQuery( document ).ready(function() {
+    function doPoll(){
+        jQuery.get('/status?job=<%= @case_document.job_id %>', function(data) {
+            console.log(data);
+            if (data['status'] == 'completed') {
+              jQuery("div#status").html('<p class="govuk-!-margin-bottom-0">Transcoded finished</div>');
+              jQuery("textarea#content").val(data['transcoded_text']);
+            } else {
+              setTimeout(doPoll, 5000);
+            }
+        });
+    }
+    <% if ActiveJob::Status.get(@case_document.job_id)[:status] != :completed %>
+      doPoll();
+    <% end %>
+  });
+</script>
