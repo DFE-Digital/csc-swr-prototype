@@ -1,0 +1,9 @@
+<div class="govuk-form-group">
+   <h1 class="govuk-label-wrapper">
+      <label class="govuk-label govuk-label--xl" for="note-content">
+      Video file <%= @case_document.title %> <br>
+      <video id="clip" controls preload=auto width=640 height=360 data-setup="{}" style="width: 640px; height: 480px;">
+        <source src="/sample-mp4-file.mp4" type='video/mp4'/>
+      </video>
+   </h1>
+</div>

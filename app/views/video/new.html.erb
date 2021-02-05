@@ -1,0 +1,26 @@
+<main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
+   <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+         <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
+            Video file upload
+         </h1>
+
+           <div class="govuk-grid-row">
+           	<div class="govuk-grid-column-two-thirds">
+               <%= form_with model: @case_document, url: '/video/upload' do | f | %>
+
+                 <div class='govuk-form-group'>
+                   <%= f.label "Upload a file", class: "govuk-label govuk-!-margin-top-6" %>
+                   <%= f.file_field :document, class: "govuk-file-upload", id: "file-upload", label: "Upload a file" %>
+                 </div>
+
+                 <div class='govuk-form-group'>
+                   <%= f.submit "Upload", class: "govuk-button govuk-!-margin-bottom-0" %>
+                 </div>
+
+               <% end %>
+           	</div>
+           </div>
+      </div>
+   </div>
+</main>

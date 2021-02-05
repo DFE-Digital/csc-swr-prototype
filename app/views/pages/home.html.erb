@@ -74,11 +74,24 @@
          <h2 class="govuk-heading-l">
             Images and videos
          </h2>
+         <% if Case.first.case_documents.select{|a| a.document_type == 'video'}.empty? %>
          <p>
             You have not added any images or videos yet.
          </p>
+         <% else %>
+           <table class="govuk-table">
+      			  <tbody class="govuk-table__body">
+              <% Case.first.case_documents.select{|a| a.document_type == 'video'}.each do |case_document| %>
+      				<tr class="govuk-table__row">
+      					<td class="govuk-table__cell"><%= link_to case_document.title, video_show_path(case_document) %></td>
+      					<td class="govuk-table__cell"><%= case_document.created_at.strftime('%d %B %Y') %></td>
+      				</tr>
+              <% end %>
+      			 </tbody>
+      		 </table>
+         <% end %>
          <p>
-            <a href="new-media-file" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+            <a href="/video" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
             Add an image or video
             </a>
          </p>
