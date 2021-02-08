@@ -1,0 +1,40 @@
+<p>This is an example of writing into pouchDB</p>
+<p>
+  Here, the input field writes into pouch db whenever there is an onchange. 
+  Check the console for a success message when writing into the input box
+</p>
+<%= form_for :example_form, html: {id: "my_form"} do |f| %> 
+  <%=  f.text_field :hello, id: 'form_input', onchange: 'addItemToDb(this.value);' %>
+  <%=  f.submit 'Submit this form', id: 'submit_button' %>
+<% end %>
+
+
+<script>
+  // Step 1: Create a new pouch instance
+  // The localStorage adapter is support for old browsers, use { adapter: 'localStorage' }
+  // as a second argument to instantiation of new pouch
+  let db = new PouchDB('http://127.0.0.1:5984/_utils/#/database/mycompany');
+
+  function addItemToDb(text) {
+    let visit_note = {
+      _id: new Date().toISOString(),
+      content: text
+    }
+    db.put(visit_note, function callback(err, result) {
+      if (!err) {
+        console.log('Successful addition of visit note into PouchDB!')
+      } else {
+        console.log(visit_note)
+        console.log(err)
+      }
+    })
+  }
+
+  // Step 3: replicate to the server
+  db.replicate.to('http://127.0.0.1:5984/_utils/#/database/mycompany')
+
+  // Step 4: Listen to the changes
+  db.changes().on('change', () => {
+    console.log('Changes')
+  })
+</script>

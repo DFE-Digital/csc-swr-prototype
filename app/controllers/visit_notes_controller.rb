@@ -1,6 +1,9 @@
 class VisitNotesController < ApplicationController
 
-  def new 
+  def jQueryLocalStorage
+  end
+
+  def pouchDB
   end
 
   def create

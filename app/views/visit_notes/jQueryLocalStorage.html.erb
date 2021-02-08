@@ -1,6 +1,8 @@
 
 
 <div>Example form with persisting offline data</div>
+<p>This example will write into local storage every 5 seconds, and on page reload will re-input the local storage data into the form using jQuery</p>
+<p>It would be a good feature to clear Local Storage when on a 200OK response from the form submit.</p>
 <%= form_for :example_form, html: {id: "my_form"} do |f| %> 
   <%=  f.text_field :hello, id: 'form_input' %>
   <%=  f.submit 'Submit this form', id: 'submit_button' %>
