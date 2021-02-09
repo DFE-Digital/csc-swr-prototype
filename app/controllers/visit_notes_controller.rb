@@ -6,6 +6,9 @@ class VisitNotesController < ApplicationController
   def pouchDB
   end
 
+  def pouchDBoutput
+  end
+
   def create
   end
 end
