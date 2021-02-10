@@ -29,7 +29,13 @@ Prototype link: https://social-worker-recording-tool-dev.london.cloudapps.digita
 4. Run `bundle exec rails server` to launch the app on http://localhost:3000
 5. Run `./bin/webpack-dev-server` in a separate shell for faster compilation of assets
 
+# Setting up couchDB for persisting offline data
 
+Download couchDB locally from <a href="https://couchdb.apache.org/">here</a> (this example was created with CouchDB 3.1.1)
+
+On downloading, you can use the CouchDB GUI to open couchDB. Create an admin account called `admin`, and give it a password `password`. This is essential to make sure querying the database is successful with the endpoints used in the examples. 
+
+On running couchDB, you should be able to visit http://127.0.0.1:5984/ to get a welcome message from couch. If you dont, its not running. 
 ## Running specs, linter(without auto correct) and annotate models and serializers
 ```
 bundle exec rake
