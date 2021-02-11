@@ -1,0 +1,10 @@
+{
+  "name": "Recording Tool Offline",
+  "short_name": "SWRT",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "This is an example of how to create a standalone app with Rails 6.",
+  "icons": []
+}
