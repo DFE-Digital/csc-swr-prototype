@@ -3,10 +3,9 @@
   Here, the input field writes into pouch db whenever there is an onchange. 
   Check the console for a success message when writing into the input box
 </p>
-<%= form_for :example_form, html: {id: "my_form"}, remote: true do |f| %> 
-  <%=  f.text_field :hello, id: 'form_input' %>
-  <%=  f.submit 'Submit this form', id: 'submit_button' %>
-<% end %>
+<label for="">Input something into PouchDB and CouchDB</label> <br> <br>
+<input type="text" id="form_input"> <br> <br>
+<button id="submit_button">Click me to submit the form input into pouchDB</button> <br>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -34,10 +33,8 @@
     console.log('Replication was paused. Probably because of lost connection')
   }).on('active', function (info) {
     console.log('Replication was resumed!!!')
-  }).on('error', function (err) {
-    console.log('An unhandled error? Youre in trouble...', err)
-  });
-
+  })
+  
   $("#submit_button").on("click", function() {
     let input_data = $("#form_input").val()
     addItemToDb(input_data)
@@ -57,18 +54,14 @@
     })
   }
 
+  // This will replicate the localdb to the remote db if something changes
   localdb.replicate.to(remotedb).on('complete', function() {
     console.log('Replication complete')
   }).on('error', function(err) {
     console.log('An error!!!!!!!', err)
   })
 
-  localdb.changes({
-    live: true, 
-    retry: true
-  })
-
-  // Step 4: Listen to the changes
+  // Step 4: Listen to the changes. 
   remotedb.changes().on('change', () => {
     console.log('Changes')
   })
