@@ -3,7 +3,7 @@ class VisitNotesController < ApplicationController
   def jQueryLocalStorage
   end
 
-  def pouchDB
+  def pouchDBinput
   end
 
   def pouchDBoutput
