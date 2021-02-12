@@ -15,8 +15,6 @@ gem "puma", "~> 5.1"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem "webpacker"
 
-# gem 'webpacker-pwa', group: :development
-
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
