@@ -1,6 +1,7 @@
 {
   "name": "Recording Tool Offline",
   "short_name": "SWRT",
+  "offline_enabled": true,
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
