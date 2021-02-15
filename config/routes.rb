@@ -9,5 +9,6 @@ Rails.application.routes.draw do
 
   # Service Worker
   get '/service-worker.js', to: "serviceworker#service_worker" 
+  get '/manifest.json', to: "serviceworker#manifest" 
   get '/offline.html', to: "serviceworker#offline" 
 end

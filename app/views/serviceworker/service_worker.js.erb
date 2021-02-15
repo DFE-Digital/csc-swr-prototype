@@ -45,7 +45,7 @@ self.addEventListener('fetch', (e) => {
     fetch(e.request)
     .catch(() => {
       console.log('It looks like you are offline!')
-      caches.match(e.request)
+      caches.match('/offline.html')
     })
   )
 })
