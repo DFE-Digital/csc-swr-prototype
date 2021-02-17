@@ -1,18 +1,19 @@
 {
-  "short_name": "PWACSCSWR",
-  "name": "Progressive Web Application Social Recording Tool",
+  "short_name": "SWRC PWA",
+  "name": "Social Worker Recording Tool PWA",
   "icons": [
     {
-      "src": "<%= asset_path('train_192.png') %>",
+      "src": "<%= asset_path('icon-192.png') %>",
       "type": "image/png",
-      "src": "192x192"
+      "sizes": "192x192"
     },
     {
-      "src": "<%= asset_path('train_512.png') %>",
+      "src": "<%= asset_path('icon-512.png') %>",
       "type": "image/png",
-      "src": "512x512"
+      "sizes": "512x512"
     }
   ],
+  "start_url": "/?source=pwa",
   "background_color": "#f2f3f5",
   "display": "standalone",
   "scope": "<%= root_path %>",
